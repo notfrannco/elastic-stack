@@ -1,0 +1,5 @@
+---
+node_name: "master-1"
+node_master: "true"
+node_data: "false"
+node_ingest: "true"

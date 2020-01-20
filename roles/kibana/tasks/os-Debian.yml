@@ -1,0 +1,11 @@
+---
+- name: Copy the .deb to the server
+  copy:
+    src: files/kibana.deb
+    dest: /root/
+
+- name: Install the kibana package
+  apt:
+    name: /root/debian.deb
+    state: present
+...

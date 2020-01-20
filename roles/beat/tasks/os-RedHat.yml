@@ -1,0 +1,10 @@
+---
+- name: Copy the rpm to the server
+  copy:
+    src: files/{{ beat_name }}.rpm
+    dest: /root/
+
+- name: Install the {{ beat_name }} package
+  yum:
+    name: /root/{{ beat_name }}.rpm
+    state: present

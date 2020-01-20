@@ -1,0 +1,10 @@
+---
+- name: Copy the .deb to the server
+  copy:
+    src: files/elasticsearch.deb
+    dest: /root/
+
+- name: Install the elasticsearch package
+  apt:
+    name: /root/elasticsearch.deb
+    state: present

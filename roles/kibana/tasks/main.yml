@@ -1,0 +1,32 @@
+---
+# tasks file for kibana---
+
+- include_tasks: os-RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+- include_tasks: os-Debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Configure kibana.yml
+  template:
+    src: templates/kibana.yml.j2
+    dest: /etc/kibana/kibana.yml
+
+- name: Reload systemd daemons
+  systemd:
+    daemon_reload: yes
+
+- name: Start kibana service
+  service:
+    name: kibana
+    state: started
+    enabled: yes
+
+- name: Wait for kibana to fully start 
+  uri:
+    url: "http://{{ ansible_facts['default_ipv4']['address'] }}:5601/status"
+    status_code: 200
+  register: kibana_status
+  until: kibana_status.status == 200
+  retries: 90
+  delay: 5 

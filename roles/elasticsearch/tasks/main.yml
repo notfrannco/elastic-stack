@@ -1,0 +1,25 @@
+---
+# tasks file for elasticsearch---
+
+- include: os-RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+- include: os-Debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Configure elasticsearch.yml
+  template:
+    src: templates/elasticsearch.yml.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+    owner: root
+    group: elasticsearch
+
+- name: Reload systemd daemons
+  systemd:
+    daemon_reload: yes
+
+- name: Start the elasticsearch service
+  service:
+    name: elasticsearch
+    state: started
+    enabled: yes

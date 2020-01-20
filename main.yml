@@ -1,0 +1,29 @@
+---
+- name: Configure prerequisite
+  import_playbook: pre_requisitos.yml
+
+- name: Install Elasticsearch
+  hosts: elasticsearch 
+  become: true
+  roles:
+    - elasticsearch
+
+- name: Install Kibana
+  hosts: kibana
+  become: true
+  roles:
+    - kibana
+
+- name: Install Elastic Beats
+  hosts: beat
+  become: true
+  tasks:
+    - name: Install beats
+      include_role:
+        name: beat
+      vars:
+        - beat_name: "{{ item }}"
+      loop:
+        - metricbeat
+        - filebeat
+        - auditbeat

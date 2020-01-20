@@ -1,0 +1,10 @@
+---
+- name: Copy the rpm to the server
+  copy:
+    src: files/elasticsearch.rpm
+    dest: /root/
+
+- name: Install the elasticsearch package
+  yum:
+    name: /root/elasticsearch.rpm
+    state: present

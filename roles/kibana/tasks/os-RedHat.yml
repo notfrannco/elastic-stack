@@ -1,0 +1,11 @@
+---
+- name: Copy the rpm to the server
+  copy:
+    src: files/kibana.rpm
+    dest: /root/
+
+- name: Install the kibana package
+  yum:
+    name: /root/kibana.rpm
+    state: present
+...

@@ -1,0 +1,42 @@
+---
+# tasks file for beat---
+
+- include_tasks: os-RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+- include_tasks: os-Debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Configure {{ beat_name }}.yml
+  template:
+    src: templates/{{ beat_name }}.yml.j2
+    dest: /etc/{{ beat_name }}/{{ beat_name }}.yml
+
+- name: Test {{ beat_name }} connection
+  shell: '{{ beat_name }} test output'
+  register: result
+  ignore_errors: yes
+
+- name: Test connection output
+  debug:
+    msg: "{{ result.stdout }}"
+
+- name: Reload systemd daemons
+  systemd:
+    daemon_reload: yes
+
+- name: Configure system module of {{ beat_name }}
+  shell: '{{ beat_name }} modules enable system'
+  #when: modules == 'yes'
+  when: (  beat_name  == "metricbeat") or 
+        (  beat_name  == "filebeat")
+
+- name: Run {{ beat_name }} setup and dashboard config on kibana
+  shell: '{{ beat_name }} setup'
+  ignore_errors: yes
+
+- name: Start {{ beat_name }} service
+  service:
+    name: '{{ beat_name }}'
+    state: started
+    enabled: yes
