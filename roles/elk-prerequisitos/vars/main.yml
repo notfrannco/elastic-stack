@@ -1,0 +1,5 @@
+---
+# vars file for roles/elk-prerequisitos
+fsfile_max_value: "65536"
+fsfile_max_user: "elasticsearch"
+vm_max_map_count_value: "262144"

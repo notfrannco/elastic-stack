@@ -20,7 +20,7 @@ cluster.name: {{ cluster_name | default('elasticsearch') }}
 #
 # Use a descriptive name for the node:
 #
-node.name: {{ node_name | default( inventory_hostname ) }}
+node.name: {{ node_name | default( "master-1" ) }}
 node.master: {{ node_master | default('true') }}
 node.data: {{ node_data | default('true') }}
 #

@@ -2,3 +2,4 @@ files/*
 roles/beat/files/*.rpm
 roles/elasticsearch/files/*.rpm
 roles/kibana/files/*.rpm
+*.swp

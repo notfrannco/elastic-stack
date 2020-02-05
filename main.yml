@@ -1,18 +1,24 @@
 ---
-- name: Configure prerequisite
-  import_playbook: pre_requisitos.yml
+- name: Configurar prerequisitos
+  hosts: elasticsearch
+  become: true
+  roles:
+    - elk-prerequisitos
+  tags: elk-prerequisitos
 
 - name: Install Elasticsearch
   hosts: elasticsearch 
   become: true
   roles:
     - elasticsearch
+  tags: elasticsearch
 
 - name: Install Kibana
   hosts: kibana
   become: true
   roles:
     - kibana
+  tags: kibana
 
 - name: Install Elastic Beats
   hosts: beat
@@ -27,3 +33,5 @@
         - metricbeat
         - filebeat
         - auditbeat
+        - packetbeat
+  tags: beat

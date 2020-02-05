@@ -6,5 +6,4 @@
 
 - name: Install the elasticsearch package
   apt:
-    name: /root/elasticsearch.deb
-    state: present
+    deb: /root/elasticsearch.deb

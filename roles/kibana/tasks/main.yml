@@ -24,7 +24,7 @@
 
 - name: Wait for kibana to fully start 
   uri:
-    url: "http://{{ ansible_facts['default_ipv4']['address'] }}:5601/status"
+    url: "http://{{ ansible_facts.default_ipv4.address }}:5601/status"
     status_code: 200
   register: kibana_status
   until: kibana_status.status == 200

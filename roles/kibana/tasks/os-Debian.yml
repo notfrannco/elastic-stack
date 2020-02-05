@@ -6,6 +6,5 @@
 
 - name: Install the kibana package
   apt:
-    name: /root/debian.deb
-    state: present
+    deb: /root/kibana.deb
 ...

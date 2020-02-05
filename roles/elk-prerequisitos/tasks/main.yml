@@ -1,0 +1,26 @@
+---
+# tasks file for roles/elk-prerequisitos
+
+- name: Add the fs.file-max on the sysctl.conf
+  sysctl:
+    name: fs.file-max
+    value: '{{ fsfile_max_value }}'
+    reload: yes
+
+- name: Add the max map count on sysctl.conf
+  sysctl:
+    name: vm.max_map_count
+    value: '{{ vm_max_map_count_value }}'
+    reload: yes
+
+- name: Configure the fs.file max per user
+  pam_limits:
+    domain: "{{ fsfile_max_user }}"
+    limit_type: "{{ item.lim_type }}"
+    limit_item: "{{ item.lim_item }}"
+    value: "{{ item.value }}"
+  loop:
+    - {lim_type: 'soft', lim_item: 'nproc', value: '{{ fsfile_max_value }}'}
+    - {lim_type: 'soft', lim_item: 'nofile', value: '{{ fsfile_max_value }}'}
+    - {lim_type: 'hard', lim_item: 'nproc', value: '{{ fsfile_max_value }}'}
+    - {lim_type: 'hard', lim_item: 'nofile', value: '{{ fsfile_max_value }}'}

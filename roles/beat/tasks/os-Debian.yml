@@ -1,0 +1,9 @@
+---
+- name: Copy the .deb to the server
+  copy:
+    src: files/{{ beat_name }}.deb
+    dest: /root/
+
+- name: Install the {{ beat_name }} package
+  apt:
+    deb: /root/{{ beat_name }}.deb
