@@ -1,31 +1,18 @@
 [all]
-elk-nodo1
-elk-nodo2
-elk-nodo3
-#kibana.lab
-#nexus.lab
-#gitlab.lab
-#jenkins.lab
+#elk-nodo1
+#elk-nodo2
+#elk-nodo3
 
 
 [kibana]
 elk-nodo1
-#kibana.lab
 
 [beat]
-elk-nodo2
-elk-nodo3
-#oracle-data
-#nexus.lab
-#gitlab.lab
-#jenkins.lab
+#elk-nodo1
+#elk-nodo2
+#elk-nodo3
 
 [elasticsearch]
 elk-nodo1
 elk-nodo2
 elk-nodo3
-#kibana.lab
-
-
-#[oracle]
-#oracle-data

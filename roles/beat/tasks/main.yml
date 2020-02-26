@@ -24,6 +24,7 @@
 - name: Reload systemd daemons
   systemd:
     daemon_reload: yes
+  when: ansible_distribution_major_version >= "7"
 
 - name: Configure system module of {{ beat_name }}
   shell: '{{ beat_name }} modules enable system'

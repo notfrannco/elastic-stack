@@ -2,4 +2,7 @@ files/*
 roles/beat/files/*.rpm
 roles/elasticsearch/files/*.rpm
 roles/kibana/files/*.rpm
+roles/beat/files/*.deb
+roles/elasticsearch/files/*.deb
+roles/kibana/files/*.deb
 *.swp

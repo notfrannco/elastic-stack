@@ -2,7 +2,7 @@
 node_master_name: "master-1"
 cluster_name: elasticsearch
 network_host: "[_local_, _site_]"
-discovery_seed_hosts: '["elkmaster_ip o dns"]'
+discovery_seed_hosts: '["192.168.102.249"]'
 cluster_initial_master_nodes: '["master-1"]'
-elastic_master_ip: "elkmaster_ip o dns"
-elasticsearch_hosts: '["http://elkmaster_ip o dns:9200"]'
+elastic_master_ip: "192.168.102.249"
+elasticsearch_hosts: '["http://192.168.102.249:9200"]'
