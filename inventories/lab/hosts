@@ -1,18 +1,15 @@
 [all]
-#elk-nodo1
-#elk-nodo2
-#elk-nodo3
+elk-nodo1
+elk-nodo2
+elk-nodo3
 
 
 [kibana]
 elk-nodo1
 
 [beat]
-#elk-nodo1
-#elk-nodo2
-#elk-nodo3
+elk-nodo2
+elk-nodo3
 
 [elasticsearch]
 elk-nodo1
-elk-nodo2
-elk-nodo3

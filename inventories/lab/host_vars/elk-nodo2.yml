@@ -1,5 +1,5 @@
----
-node_name: node-1
-node_master: "false"
-node_data: "true"
-node_ingest: "true"
+#---
+#node_name: node-1
+#node_master: "false"
+#node_data: "true"
+#node_ingest: "true"
