@@ -11,6 +11,8 @@
   become: true
   roles:
     - elasticsearch
+  vars:
+    file_location: "{{ rpm_location }}"
   tags: elasticsearch
 
 - name: Install Kibana
