@@ -1,7 +1,7 @@
 ---
 - name: Copy the rpm to the server
   copy:
-    src: "/var/lib/awx/files/{{ beat_name }}.rpm"
+    src: files/elasticsearch.rpm
     dest: /root/
 
 - name: Install the elasticsearch package
