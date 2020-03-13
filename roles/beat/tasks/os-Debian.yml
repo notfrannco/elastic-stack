@@ -1,7 +1,7 @@
 ---
 - name: Copy the .deb to the server
   copy:
-    src: files/{{ beat_name }}.deb
+    src: "{{ pkg_location | default('files') }}/{{ beat_name }}.deb"
     dest: /root/
 
 - name: Install the {{ beat_name }} package
