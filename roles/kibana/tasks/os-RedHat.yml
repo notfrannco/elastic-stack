@@ -1,7 +1,7 @@
 ---
 - name: Copy the rpm to the server
   copy:
-    src: files/kibana.rpm
+    src: "{{ pkg_location | default('files') }}/kibana.rpm"
     dest: /root/
 
 - name: Install the kibana package

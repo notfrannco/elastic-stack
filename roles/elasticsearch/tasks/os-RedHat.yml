@@ -1,7 +1,7 @@
 ---
 - name: Copy the rpm to the server
   copy:
-    src: files/elasticsearch.rpm
+    src: "{{ pkg_location | default('files') }}/elasticsearch.rpm"
     dest: /root/
 
 - name: Install the elasticsearch package

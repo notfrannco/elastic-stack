@@ -1,7 +1,7 @@
 ---
 - name: Copy the rpm to the server
   copy:
-    src: files/{{ beat_name }}.rpm
+    src: "{{ pkg_location | default('files') }}/{{ beat_name }}.rpm"
     dest: /root/
 
 - name: Install the {{ beat_name }} package

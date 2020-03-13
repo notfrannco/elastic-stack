@@ -1,7 +1,7 @@
 ---
 - name: Copy the .deb to the server
   copy:
-    src: files/kibana.deb
+    src: "{{ pkg_location | default('files') }}/kibana.deb"
     dest: /root/
 
 - name: Install the kibana package
