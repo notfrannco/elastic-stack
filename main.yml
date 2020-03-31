@@ -32,6 +32,6 @@
       loop:
         - metricbeat
         - filebeat
-        - auditbeat
+        #- auditbeat
         - packetbeat
   tags: beat
