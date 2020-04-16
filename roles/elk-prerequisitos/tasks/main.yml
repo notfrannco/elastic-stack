@@ -24,3 +24,15 @@
     - {lim_type: 'soft', lim_item: 'nofile', value: '{{ fsfile_max_value }}'}
     - {lim_type: 'hard', lim_item: 'nproc', value: '{{ fsfile_max_value }}'}
     - {lim_type: 'hard', lim_item: 'nofile', value: '{{ fsfile_max_value }}'}
+
+- name: Configure firewall ports
+  firewalld:
+    port: "{{ item.port }}"
+    permanent: yes
+    state: "{{ item.state }}"
+    immediate: yes
+  loop:
+    - {port: '9200/tcp', state: 'enabled'}
+    - {port: '9300/tcp', state: 'enabled'}
+    - {port: '5601/tcp', state: 'enabled'}
+  when: ansible_os_family == "RedHat"
