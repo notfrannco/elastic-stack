@@ -1,0 +1,10 @@
+---
+- name: Playbook para instalar Kibana
+  hosts: kibana
+  become: true
+  roles:
+    - role: kibana
+      vars:
+        repo_url: "http://192.168.102.224/repo/"
+        rpm_name: "kibana-7.15.2-x86_64.rpm"
+        elasticsearch_hosts: '["http://192.168.102.224:9200"]' # donde se publica el kibana 

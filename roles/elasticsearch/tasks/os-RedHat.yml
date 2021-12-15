@@ -1,10 +1,18 @@
 ---
-- name: Copy the rpm to the server
-  copy:
-    src: "{{ pkg_location | default('files') }}/elasticsearch.rpm"
+#- name: Copy the rpm to the server
+#  copy:
+#    src: "{{ pkg_location | default('files') }}/elasticsearch.rpm"
+#    dest: /root/
+
+- name: download the rpm file to install
+  get_url:
+    url: "{{ repo_url }}{{ rpm_name }}"
     dest: /root/
+    owner: root
+    group: root
 
 - name: Install the elasticsearch package
   yum:
-    name: /root/elasticsearch.rpm
+    #name: /root/elasticsearch.rpm
+    name: /root/{{ rpm_name }}
     state: present

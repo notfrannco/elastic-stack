@@ -1,0 +1,17 @@
+---
+- name: Playbook para instalar beats
+  hosts: beat
+  become: true
+  tasks:
+    - name: Install beats
+      include_role:
+        name: beat
+      vars:
+        - beat_name: "{{ item.beat_name }}"
+        - rpm_name: "{{ item.rpm_name }}"
+        - elastic_master_ip: 192.168.102.224
+        - repo_url: "http://192.168.102.224/repo/"
+      loop:
+        - {rpm_name: metricbeat-7.15.2-x86_64.rpm, beat_name: metricbeat}
+        - {rpm_name: filebeat-7.15.2-x86_64.rpm, beat_name: filebeat}
+        - {rpm_name: packetbeat-7.15.2-x86_64.rpm, beat_name: packetbeat}

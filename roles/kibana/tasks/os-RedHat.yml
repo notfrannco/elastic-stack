@@ -1,11 +1,20 @@
 ---
-- name: Copy the rpm to the server
-  copy:
-    src: "{{ pkg_location | default('files') }}/kibana.rpm"
+#- name: Copy the rpm to the server
+#  copy:
+#    src: "{{ pkg_location | default('files') }}/kibana.rpm"
+#    dest: /root/
+
+- name: download the rpm file to install
+  get_url:
+    url: "{{ repo_url }}{{ rpm_name }}"
     dest: /root/
+    owner: root
+    group: root
+
 
 - name: Install the kibana package
   yum:
-    name: /root/kibana.rpm
+    #name: /root/kibana.rpm 
+    name: /root/{{ rpm_name }}
     state: present
 ...

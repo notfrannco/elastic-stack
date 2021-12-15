@@ -6,12 +6,18 @@
     name: fs.file-max
     value: '{{ fsfile_max_value }}'
     reload: yes
+  tags:
+    - add_the_fsfilemax_on_the_sysctlconf
+    - elk_prerequisitos
 
 - name: Add the max map count on sysctl.conf
   sysctl:
     name: vm.max_map_count
     value: '{{ vm_max_map_count_value }}'
     reload: yes
+  tags:
+    - add_the_max_map_count_on_sysctlconf
+    - elk_prerequisitos
 
 - name: Configure the fs.file max per user
   pam_limits:
@@ -24,11 +30,17 @@
     - {lim_type: 'soft', lim_item: 'nofile', value: '{{ fsfile_max_value }}'}
     - {lim_type: 'hard', lim_item: 'nproc', value: '{{ fsfile_max_value }}'}
     - {lim_type: 'hard', lim_item: 'nofile', value: '{{ fsfile_max_value }}'}
+  tags:
+    - configure_the_fsfilemax_per_user
+    - elk_prerequisitos
 
 - name: Start firewall
   service:
     name: firewalld
     state: started
+  tags:
+    - start_firewall 
+    - elk_prerequisitos
 
 - name: Configure firewall ports
   firewalld:
@@ -41,3 +53,6 @@
     - {port: '9300/tcp', state: 'enabled'}
     - {port: '5601/tcp', state: 'enabled'}
   when: ansible_os_family == "RedHat"
+  tags:
+    - configure_firewll_ports
+    - elk_prerequisitos

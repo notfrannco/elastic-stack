@@ -1,10 +1,17 @@
 ---
-- name: Copy the rpm to the server
-  copy:
-    src: "{{ pkg_location | default('files') }}/{{ beat_name }}.rpm"
+#- name: Copy the rpm to the server
+#  copy:
+#    src: "{{ pkg_location | default('files') }}/{{ beat_name }}.rpm"
+#    dest: /root/
+- name: download the {{ rpm_name }} file to install
+  get_url:
+    url: "{{ repo_url }}{{ rpm_name }}"
     dest: /root/
+    owner: root
+    group: root
 
-- name: Install the {{ beat_name }} package
+- name: Install the {{ rpm_name }} package
   yum:
-    name: /root/{{ beat_name }}.rpm
+    #name: /root/{{ beat_name }}.rpm
+    name: /root/{{ rpm_name }}
     state: present

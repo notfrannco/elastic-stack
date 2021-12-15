@@ -1,0 +1,17 @@
+---
+- name: Playbook para instalar elasticsearch
+  hosts: elasticsearch
+  become: true
+  roles:
+    - role: elk-prerequisitos
+
+- name: Install Elasticsearch
+  hosts: elasticsearch 
+  become: true
+  roles:
+    - role: elasticsearch
+      vars:
+        repo_url: "http://192.168.102.224/repo/"
+        rpm_name: "elasticsearch-7.15.2-x86_64.rpm"
+        discovery_seed_hosts: '["192.168.102.224"]' # configurar el master tambien para esto
+        elastic_master_ip: "192.168.102.224"

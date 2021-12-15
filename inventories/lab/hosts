@@ -1,7 +1,7 @@
 [all]
-elk-nodo1
-elk-nodo2
-elk-nodo3
+elk-nodo1 ansible_host=192.168.102.224
+elk-nodo2 ansible_host=192.168.102.137
+elk-nodo3 ansible_host=192.168.102.138
 
 [kibana]
 elk-nodo1
