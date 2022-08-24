@@ -1,6 +1,7 @@
 ---
+#Example comment 5
 - name: Playbook para instalar beats
-  hosts: beat
+  hosts: "{{ server | default('beat', true) }}"
   become: true
   tasks:
     - name: Install beats
@@ -9,8 +10,8 @@
       vars:
         - beat_name: "{{ item.beat_name }}"
         - rpm_name: "{{ item.rpm_name }}"
-        - elastic_master_ip: 192.168.102.224
-        - repo_url: "http://192.168.102.224/repo/"
+        - elastic_master_ip: 10.9.3.68
+        - repo_url: "http://10.9.3.54/repo/"
       loop:
         - {rpm_name: metricbeat-7.15.2-x86_64.rpm, beat_name: metricbeat}
         - {rpm_name: filebeat-7.15.2-x86_64.rpm, beat_name: filebeat}

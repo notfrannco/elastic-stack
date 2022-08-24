@@ -11,11 +11,12 @@
   template:
     src: templates/{{ beat_name }}.yml.j2
     dest: /etc/{{ beat_name }}/{{ beat_name }}.yml
+  notify: "Restart beat service"
 
 - name: Test {{ beat_name }} connection
   shell: '{{ beat_name }} test output'
   register: result
-  ignore_errors: yes
+  changed_when: False
 
 - name: Test connection output
   debug:
@@ -26,18 +27,38 @@
     daemon_reload: yes
   when: ansible_distribution_major_version >= "7"
 
-- name: Configure system module of {{ beat_name }}
-  shell: '{{ beat_name }} modules enable system'
+- name: Verify if system module of {{ beat_name }} is enabled
+  shell: '{{ beat_name }} modules list | grep -i system'
+  ignore_errors: yes
   #when: modules == 'yes'
   when: (  beat_name  == "metricbeat") or 
         (  beat_name  == "filebeat")
+  register: verify_system_result
+  changed_when: False
+
+- name: Configure system module of {{ beat_name }}
+  shell: '{{ beat_name }} modules enable system'
+  #when: modules == 'yes'
+  when: 
+    -  (  beat_name  == "metricbeat") or (  beat_name  == "filebeat")
+    -  "verify_system_result.rc != 0" 
+  register: result
+  changed_when: "'Module system is already enabled' not in result.stdout"
+  notify: "Restart beat service"
 
 - name: Run {{ beat_name }} setup and dashboard config on kibana
   shell: '{{ beat_name }} setup'
-  ignore_errors: yes
+  register: result
+  changed_when: "result.rc == 0"
+  ignore_errors: True
+  notify: "Restart beat service"
+  when: installation_result.changed
 
-- name: Start {{ beat_name }} service
-  service:
-    name: '{{ beat_name }}'
-    state: started
-    enabled: yes
+- name: Flush handlers
+  meta: flush_handlers
+
+#- name: Start {{ beat_name }} service
+#  service:
+#    name: '{{ beat_name }}'
+#    state: started
+#    enabled: yes
