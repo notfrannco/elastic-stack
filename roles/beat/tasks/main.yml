@@ -28,7 +28,7 @@
   when: ansible_distribution_major_version >= "7"
 
 - name: Verify if system module of {{ beat_name }} is enabled
-  shell: '{{ beat_name }} modules list | grep -i system'
+  shell: 'ls -l /etc/{{ beat_name }}/modules.d/*.yml | grep system'
   ignore_errors: yes
   #when: modules == 'yes'
   when: (  beat_name  == "metricbeat") or 
