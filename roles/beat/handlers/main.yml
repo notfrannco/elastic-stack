@@ -1,2 +1,29 @@
 ---
 # handlers file for beat
+  - name: Restart beat service
+    service:
+      name: "{{ item }}"
+      state: restarted
+    loop:
+      - filebeat
+      - metricbeat
+      - packetbeat
+    listen: "restart all beats services"
+
+#  - name: Restart filebeat
+#    service:
+#      name: filebeat
+#      state: restarted
+#    listen: "restart all beats services"
+#
+#  - name: Restart metribeat
+#    service:
+#      name: metricbeat
+#      state: restarted
+#    listen: "restart all beats services"
+#
+#  - name: Restart packetbeat
+#    service:
+#      name: packetbeat
+#      state: restarted
+#    listen: "restart all beats services"

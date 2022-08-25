@@ -15,3 +15,4 @@
     #name: /root/{{ beat_name }}.rpm
     name: /root/{{ rpm_name }}
     state: present
+  register: installation_result
